@@ -10,6 +10,7 @@
 <body>
     Please Sign In
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
 </body>
 <script>
     function onSignIn(googleUser) {
@@ -35,6 +36,13 @@
         },
         function(fail){
             alert(JSON.stringify({message: "fail", value: fail}));
+        });
+    }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+        console.log('User signed out.');
         });
     }
 </script>
