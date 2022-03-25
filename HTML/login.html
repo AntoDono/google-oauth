@@ -30,7 +30,7 @@
         });    
 
         googleUser = auth2.currentUser.get();
-        googleUser.grant().then(
+        googleUser.grant(option).then(
         function(success){
             console.log(JSON.stringify({message: "success", value: success}));
         },
