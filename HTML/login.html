@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="576264966075-uck1jpjhpvj323s427a3l3ajdv32c2kl.apps.googleusercontent.com">
+    <title>Login Page</title>
+</head>
+<body>
+    Please Sign In
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+</body>
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log(profile)
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+        const option = new gapi.auth2.SigninOptionsBuilder();
+        option.setScope('email https://www.googleapis.com/auth/drive');
+        
+        auth2 = gapi.auth2.init({
+            client_id: '576264966075-uck1jpjhpvj323s427a3l3ajdv32c2kl.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin', /** Default value **/
+        });    
+
+        googleUser = auth2.currentUser.get();
+        googleUser.grant().then(
+        function(success){
+            console.log(JSON.stringify({message: "success", value: success}));
+        },
+        function(fail){
+            alert(JSON.stringify({message: "fail", value: fail}));
+        });
+    }
+</script>
+</html>
